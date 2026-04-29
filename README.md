@@ -387,6 +387,91 @@ docker run --name new-api -d --restart always \
 
 </details>
 
+<details>
+<summary><strong>Method 4: Verified Local Development Deployment (Windows + Go + Bun + PostgreSQL)</strong></summary>
+
+This project was also verified in a pure local development setup without Docker on Windows:
+
+- Backend: `Go 1.26.x`
+- Frontend: `Bun 1.3.x` + `Vite`
+- Database: `PostgreSQL 17`
+- Backend port: `8080`
+- Frontend dev port: `5173`
+
+**1. Install required runtimes**
+
+```powershell
+winget install --id GoLang.Go --exact
+winget install --id Oven-sh.Bun --exact
+winget install --id PostgreSQL.PostgreSQL.17 --exact
+```
+
+**2. Create a local PostgreSQL database**
+
+```powershell
+psql -h localhost -U postgres -d postgres -c "CREATE ROLE newapi LOGIN PASSWORD '<your-password>';"
+psql -h localhost -U postgres -d postgres -c "CREATE DATABASE newapi OWNER newapi;"
+```
+
+**3. Configure `.env` in the project root**
+
+```env
+PORT=8080
+TZ=Asia/Shanghai
+SQL_DSN=postgresql://newapi:<your-password>@localhost:5432/newapi?sslmode=disable
+SESSION_SECRET=<your-session-secret>
+CRYPTO_SECRET=<your-crypto-secret>
+MEMORY_CACHE_ENABLED=true
+ERROR_LOG_ENABLED=true
+BATCH_UPDATE_ENABLED=true
+```
+
+**4. Start the backend**
+
+```powershell
+cd new-api
+go run main.go
+```
+
+Notes:
+
+- When `SQL_DSN` is present, the backend uses PostgreSQL instead of SQLite.
+- The backend serves both API routes and the embedded built frontend on `http://localhost:8080`.
+
+**5. Start the frontend dev server**
+
+```powershell
+cd new-api\web
+bun install
+$env:NEW_API_DEV_PROXY_TARGET='http://localhost:8080'
+bun run dev
+```
+
+The Vite dev server will be available at `http://localhost:5173`, and `/api`, `/mj`, and `/pg` requests will be proxied to the backend.
+
+**6. Validation**
+
+```powershell
+Invoke-WebRequest http://localhost:8080/api/status
+Invoke-WebRequest http://localhost:5173/api/status
+```
+
+Both endpoints should return `200`.
+
+**7. Optional: rebuild embedded frontend assets**
+
+If you want the Go backend on `8080` to serve the latest frontend changes directly, rebuild the frontend before restarting the backend:
+
+```powershell
+cd new-api\web
+bun run build
+
+cd ..
+go run main.go
+```
+
+</details>
+
 ### ⚠️ Multi-machine Deployment Considerations
 
 > [!WARNING]

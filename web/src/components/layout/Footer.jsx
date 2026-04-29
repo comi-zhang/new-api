@@ -32,13 +32,29 @@ const FooterBar = () => {
   const isDemoSiteMode = statusState?.status?.demo_site_enabled || false;
 
   const loadFooter = () => {
-    let footer_html = localStorage.getItem('footer_html');
-    if (footer_html) {
-      setFooter(footer_html);
+    const footerHTML = localStorage.getItem('footer_html');
+    if (footerHTML) {
+      setFooter(footerHTML);
     }
   };
 
   const currentYear = new Date().getFullYear();
+
+  const attribution = (
+    <div className='text-sm'>
+      <span className='!text-semi-color-text-1'>
+        品牌与体验：ByteCola · 文档支持：
+      </span>{' '}
+      <a
+        href='https://docs.newapi.pro/'
+        target='_blank'
+        rel='noopener noreferrer'
+        className='!text-semi-color-primary font-medium'
+      >
+        New API Docs
+      </a>
+    </div>
+  );
 
   const customFooter = useMemo(
     () => (
@@ -195,19 +211,7 @@ const FooterBar = () => {
             </Typography.Text>
           </div>
 
-          <div className='text-sm'>
-            <span className='!text-semi-color-text-1'>
-              {t('设计与开发由')}{' '}
-            </span>
-            <a
-              href='https://github.com/QuantumNous/new-api'
-              target='_blank'
-              rel='noopener noreferrer'
-              className='!text-semi-color-primary font-medium'
-            >
-              New API
-            </a>
-          </div>
+          {attribution}
         </div>
       </footer>
     ),
@@ -227,19 +231,7 @@ const FooterBar = () => {
               className='custom-footer na-cb6feafeb3990c78 text-sm !text-semi-color-text-1'
               dangerouslySetInnerHTML={{ __html: footer }}
             ></div>
-            <div className='text-sm flex-shrink-0'>
-              <span className='!text-semi-color-text-1'>
-                {t('设计与开发由')}{' '}
-              </span>
-              <a
-                href='https://github.com/QuantumNous/new-api'
-                target='_blank'
-                rel='noopener noreferrer'
-                className='!text-semi-color-primary font-medium'
-              >
-                New API
-              </a>
-            </div>
+            <div className='text-sm flex-shrink-0'>{attribution}</div>
           </div>
         </footer>
       ) : (

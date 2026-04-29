@@ -70,6 +70,7 @@ import { SiDiscord } from 'react-icons/si';
 const LoginForm = () => {
   let navigate = useNavigate();
   const { t } = useTranslation();
+  const brandTagline = '让 AI 像可乐一样即开即用';
   const githubButtonTextKeyByState = {
     idle: '使用 GitHub 继续',
     redirecting: '正在跳转 GitHub...',
@@ -510,6 +511,9 @@ const LoginForm = () => {
               {systemName}
             </Title>
           </div>
+          <div className='mb-6 text-center'>
+            <Text type='tertiary'>{brandTagline}</Text>
+          </div>
 
           <Card className='border-0 !rounded-2xl overflow-hidden'>
             <div className='flex justify-center pt-6 pb-2'>
@@ -723,6 +727,9 @@ const LoginForm = () => {
           <div className='flex items-center justify-center mb-6 gap-2'>
             <img src={logo} alt='Logo' className='h-10 rounded-full' />
             <Title heading={3}>{systemName}</Title>
+          </div>
+          <div className='mb-6 text-center'>
+            <Text type='tertiary'>{brandTagline}</Text>
           </div>
 
           <Card className='border-0 !rounded-2xl overflow-hidden'>

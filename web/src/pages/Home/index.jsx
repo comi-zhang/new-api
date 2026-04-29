@@ -93,7 +93,6 @@ const Home = () => {
       setHomePageContent(content);
       localStorage.setItem('home_page_content', content);
 
-      // 如果内容是 URL，则发送主题模式
       if (data.startsWith('https://')) {
         const iframe = document.querySelector('iframe');
         if (iframe) {
@@ -157,28 +156,28 @@ const Home = () => {
       />
       {homePageContentLoaded && homePageContent === '' ? (
         <div className='w-full overflow-x-hidden'>
-          {/* Banner 部分 */}
           <div className='w-full border-b border-semi-color-border min-h-[500px] md:min-h-[600px] lg:min-h-[700px] relative overflow-x-hidden'>
-            {/* 背景模糊晕染球 */}
             <div className='blur-ball blur-ball-indigo' />
             <div className='blur-ball blur-ball-teal' />
             <div className='flex items-center justify-center h-full px-4 py-20 md:py-24 lg:py-32 mt-10'>
-              {/* 居中内容区 */}
-              <div className='flex flex-col items-center justify-center text-center max-w-4xl mx-auto'>
+              <div className='flex flex-col items-center justify-center text-center max-w-5xl mx-auto'>
                 <div className='flex flex-col items-center justify-center mb-6 md:mb-8'>
+                  <div className='mb-4 rounded-full border border-semi-color-border px-4 py-1 text-sm font-medium text-semi-color-text-1'>
+                    ByteCola
+                  </div>
+                  <img
+                    src='/bytecola.png'
+                    alt='ByteCola'
+                    className='w-full max-w-[320px] sm:max-w-[420px] md:max-w-[560px] lg:max-w-[680px] object-contain mb-6'
+                  />
                   <h1
-                    className={`text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold text-semi-color-text-0 leading-tight ${isChinese ? 'tracking-wide md:tracking-wider' : ''}`}
+                    className={`text-3xl md:text-4xl lg:text-5xl font-bold text-semi-color-text-0 leading-tight ${isChinese ? 'tracking-wide md:tracking-wider' : ''}`}
                   >
-                    <>
-                      {t('统一的')}
-                      <br />
-                      <span className='shine-text'>{t('大模型接口网关')}</span>
-                    </>
+                    让 AI 像可乐一样即开即用
                   </h1>
-                  <p className='text-base md:text-lg lg:text-xl text-semi-color-text-1 mt-4 md:mt-6 max-w-xl'>
-                    {t('更好的价格，更好的稳定性，只需要将模型基址替换为：')}
+                  <p className='text-base md:text-lg lg:text-xl text-semi-color-text-1 mt-4 md:mt-6 max-w-2xl'>
+                    统一接入、快速启用、稳定分发，只需将模型基地址替换为：
                   </p>
-                  {/* BASE URL 与端点选择 */}
                   <div className='flex flex-col md:flex-row items-center justify-center gap-4 w-full mt-4 md:mt-6 max-w-md'>
                     <Input
                       readonly
@@ -211,7 +210,6 @@ const Home = () => {
                   </div>
                 </div>
 
-                {/* 操作按钮 */}
                 <div className='flex flex-row gap-4 justify-center items-center'>
                   <Link to='/console'>
                     <Button
@@ -252,7 +250,6 @@ const Home = () => {
                   )}
                 </div>
 
-                {/* 框架兼容性图标 */}
                 <div className='mt-12 md:mt-16 lg:mt-20 w-full'>
                   <div className='flex items-center mb-6 md:mb-8 justify-center'>
                     <Text

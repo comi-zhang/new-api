@@ -36,6 +36,7 @@ const { Text, Title } = Typography;
 
 const PasswordResetForm = () => {
   const { t } = useTranslation();
+  const brandTagline = '让 AI 像可乐一样即开即用';
   const [inputs, setInputs] = useState({
     email: '',
   });
@@ -122,6 +123,9 @@ const PasswordResetForm = () => {
               <Title heading={3} className='!text-gray-800'>
                 {systemName}
               </Title>
+            </div>
+            <div className='mb-6 text-center'>
+              <Text type='tertiary'>{brandTagline}</Text>
             </div>
 
             <Card className='border-0 !rounded-2xl overflow-hidden'>
