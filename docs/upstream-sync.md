@@ -2,6 +2,14 @@
 
 This repository now separates upstream sync from downstream ByteCola customization.
 
+## Repository mapping
+
+- Product repository / PR target (`origin`): `https://github.com/comi-zhang/new-api.git`
+- Upstream source repository (`upstream`): `https://github.com/QuantumNous/new-api.git`
+
+All sync pull requests must be opened against the product repository `comi-zhang/new-api`.
+The upstream repository is used only as the source of updates.
+
 ## Branch model
 
 - `upstream-main`: mirror of `upstream/main`
