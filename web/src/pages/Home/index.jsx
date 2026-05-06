@@ -40,6 +40,7 @@ import {
 } from '@douyinfe/semi-icons';
 import { Link } from 'react-router-dom';
 import NoticeModal from '../../components/layout/NoticeModal';
+import { resolveBrandConfig } from '../../branding/brand';
 import {
   Moonshot,
   OpenAI,
@@ -74,7 +75,8 @@ const Home = () => {
   const [noticeVisible, setNoticeVisible] = useState(false);
   const isMobile = useIsMobile();
   const isDemoSiteMode = statusState?.status?.demo_site_enabled || false;
-  const docsLink = statusState?.status?.docs_link || '';
+  const brand = resolveBrandConfig(statusState?.status);
+  const docsLink = brand.docsLink;
   const serverAddress =
     statusState?.status?.server_address || `${window.location.origin}`;
   const endpointItems = API_ENDPOINTS.map((e) => ({ value: e }));
@@ -163,20 +165,20 @@ const Home = () => {
               <div className='flex flex-col items-center justify-center text-center max-w-5xl mx-auto'>
                 <div className='flex flex-col items-center justify-center mb-6 md:mb-8'>
                   <div className='mb-4 rounded-full border border-semi-color-border px-4 py-1 text-sm font-medium text-semi-color-text-1'>
-                    ByteCola
+                    {brand.home.badge}
                   </div>
                   <img
-                    src='/bytecola.png'
-                    alt='ByteCola'
+                    src={brand.home.heroLogo}
+                    alt={brand.brandName}
                     className='w-full max-w-[320px] sm:max-w-[420px] md:max-w-[560px] lg:max-w-[680px] object-contain mb-6'
                   />
                   <h1
                     className={`text-3xl md:text-4xl lg:text-5xl font-bold text-semi-color-text-0 leading-tight ${isChinese ? 'tracking-wide md:tracking-wider' : ''}`}
                   >
-                    让 AI 像可乐一样即开即用
+                    {brand.home.heroTitle}
                   </h1>
                   <p className='text-base md:text-lg lg:text-xl text-semi-color-text-1 mt-4 md:mt-6 max-w-2xl'>
-                    统一接入、快速启用、稳定分发，只需将模型基地址替换为：
+                    {brand.home.heroSubtitle}
                   </p>
                   <div className='flex flex-col md:flex-row items-center justify-center gap-4 w-full mt-4 md:mt-6 max-w-md'>
                     <Input
@@ -219,7 +221,7 @@ const Home = () => {
                       className='!rounded-3xl px-8 py-2'
                       icon={<IconPlay />}
                     >
-                      {t('获取密钥')}
+                      {t(brand.home.primaryCta)}
                     </Button>
                   </Link>
                   {isDemoSiteMode && statusState?.status?.version ? (
@@ -244,7 +246,7 @@ const Home = () => {
                         icon={<IconFile />}
                         onClick={() => window.open(docsLink, '_blank')}
                       >
-                        {t('文档')}
+                        {t(brand.home.docsCta)}
                       </Button>
                     )
                   )}
@@ -256,7 +258,7 @@ const Home = () => {
                       type='tertiary'
                       className='text-lg md:text-xl lg:text-2xl font-light'
                     >
-                      {t('支持众多的大模型供应商')}
+                      {t(brand.home.providerTitle)}
                     </Text>
                   </div>
                   <div className='flex flex-wrap items-center justify-center gap-3 sm:gap-4 md:gap-6 lg:gap-8 max-w-5xl mx-auto px-4'>
