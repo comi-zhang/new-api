@@ -2,7 +2,7 @@ import { useMemo } from 'react'
 import { Link } from '@tanstack/react-router'
 import { useTranslation } from 'react-i18next'
 import { cn } from '@/lib/utils'
-import { getDefaultFooterHtml } from '@/branding'
+import { getActiveBrandProfile, getDefaultFooterHtml } from '@/branding'
 import { useSystemConfig } from '@/hooks/use-system-config'
 
 interface FooterLink {
@@ -84,11 +84,14 @@ export function Footer(props: FooterProps) {
     systemName,
     logo: systemLogo,
     footerHtml,
+    docsLink,
     demoSiteEnabled,
   } = useSystemConfig()
+  const brandProfile = getActiveBrandProfile()
 
   const displayLogo = systemLogo || props.logo || '/logo.png'
   const displayName = systemName || props.name || 'New API'
+  const resolvedDocsLink = docsLink || 'https://doc.newapi.pro'
   const isDemoSiteMode = Boolean(demoSiteEnabled)
   const currentYear = new Date().getFullYear()
 
@@ -99,15 +102,15 @@ export function Footer(props: FooterProps) {
         links: [
           {
             text: t('footer.columns.about.links.aboutProject'),
-            href: 'https://docs.newapi.pro/wiki/project-introduction/',
+            href: 'https://doc.newapi.pro/wiki/project-introduction/',
           },
           {
             text: t('footer.columns.about.links.contact'),
-            href: 'https://docs.newapi.pro/support/community-interaction/',
+            href: 'https://doc.newapi.pro/support/community-interaction/',
           },
           {
             text: t('footer.columns.about.links.features'),
-            href: 'https://docs.newapi.pro/wiki/features-introduction/',
+            href: 'https://doc.newapi.pro/wiki/features-introduction/',
           },
         ],
       },
@@ -116,15 +119,15 @@ export function Footer(props: FooterProps) {
         links: [
           {
             text: t('footer.columns.docs.links.quickStart'),
-            href: 'https://docs.newapi.pro/getting-started/',
+            href: 'https://doc.newapi.pro/getting-started/',
           },
           {
             text: t('footer.columns.docs.links.installation'),
-            href: 'https://docs.newapi.pro/installation/',
+            href: 'https://doc.newapi.pro/installation/',
           },
           {
             text: t('footer.columns.docs.links.apiDocs'),
-            href: 'https://docs.newapi.pro/api/',
+            href: 'https://doc.newapi.pro/api/',
           },
         ],
       },
@@ -150,7 +153,121 @@ export function Footer(props: FooterProps) {
   )
 
   const displayColumns = props.columns ?? fallbackColumns
-  const resolvedFooterHtml = footerHtml || getDefaultFooterHtml()
+  const resolvedFooterHtml =
+    footerHtml || (!brandProfile ? getDefaultFooterHtml() : '')
+
+  if (brandProfile && !footerHtml) {
+    const brandColumns: FooterColumnProps[] = [
+      {
+        title: '平台',
+        links: [
+          { text: '关于 ByteCola', href: '/about' },
+          { text: '模型广场', href: '/pricing' },
+          { text: '控制台', href: '/dashboard' },
+        ],
+      },
+      {
+        title: '支持',
+        links: [
+          { text: brandProfile.domain, href: `https://${brandProfile.domain}` },
+          {
+            text: brandProfile.supportEmail,
+            href: `mailto:${brandProfile.supportEmail}`,
+          },
+          { text: '隐私政策', href: '/privacy-policy' },
+        ],
+      },
+      {
+        title: '来源',
+        links: [
+          {
+            text: 'New API GitHub',
+            href: 'https://github.com/QuantumNous/new-api',
+          },
+          {
+            text: '用户协议',
+            href: '/user-agreement',
+          },
+          {
+            text: '文档入口',
+            href: resolvedDocsLink,
+          },
+        ],
+      },
+    ]
+
+    return (
+      <footer
+        className={cn(
+          'border-border/40 relative z-10 border-t',
+          props.className
+        )}
+      >
+        <div className='mx-auto max-w-6xl px-6 py-14 md:py-16'>
+          <div className='grid gap-6 lg:grid-cols-[1.15fr_0.85fr]'>
+            <div className='rounded-[28px] border border-slate-200/70 bg-[linear-gradient(135deg,#f8fbff_0%,#fff4f1_55%,#ffffff_100%)] p-6 shadow-sm dark:border-white/10 dark:bg-[linear-gradient(135deg,#0f172a_0%,#111827_55%,#1f2937_100%)] md:p-7'>
+              <Link to='/' className='group flex items-center gap-3'>
+                <img
+                  src={displayLogo}
+                  alt={displayName}
+                  className='size-10 rounded-xl object-contain'
+                />
+                <div>
+                  <div className='text-base font-semibold tracking-tight'>
+                    {displayName}
+                  </div>
+                  <div className='text-muted-foreground text-sm'>
+                    {brandProfile.tagline}
+                  </div>
+                </div>
+              </Link>
+              <p className='text-muted-foreground mt-5 max-w-xl text-sm leading-7'>
+                ByteCola 聚焦于把模型接入、访问治理和交付链路整理成更可维护的产品能力，
+                让团队能以更低的沟通成本把 AI 服务稳定交付出去。
+              </p>
+              <div className='mt-5 flex flex-wrap gap-2'>
+                {['统一入口', '接入治理', '稳定交付'].map((item) => (
+                  <span
+                    key={item}
+                    className='border-border/50 bg-background/75 rounded-full border px-3 py-1.5 text-xs'
+                  >
+                    {item}
+                  </span>
+                ))}
+              </div>
+            </div>
+
+            <div className='grid gap-4 sm:grid-cols-3 lg:grid-cols-1 xl:grid-cols-3'>
+              {brandColumns.map((column) => (
+                <div
+                  key={column.title}
+                  className='rounded-[24px] border border-slate-200/70 bg-white/88 p-5 shadow-sm dark:border-white/10 dark:bg-slate-950/60'
+                >
+                  <p className='text-muted-foreground/60 mb-3 text-xs font-medium tracking-widest uppercase'>
+                    {column.title}
+                  </p>
+                  <ul className='space-y-2.5'>
+                    {column.links.map((link) => (
+                      <li key={`${column.title}-${link.href}`}>
+                        <FooterLinkItem link={link} />
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <div className='border-border/30 mt-8 flex flex-col gap-4 border-t pt-6 md:flex-row md:items-center md:justify-between'>
+            <p className='text-muted-foreground/50 text-sm'>
+              &copy; {currentYear} {displayName}. 保留所有权利。
+            </p>
+            <ProjectAttribution currentYear={currentYear} />
+          </div>
+        </div>
+      </footer>
+    )
+  }
 
   if (resolvedFooterHtml) {
     return (

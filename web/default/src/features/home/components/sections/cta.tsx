@@ -1,6 +1,7 @@
 import { Link } from '@tanstack/react-router'
 import { ArrowRight } from 'lucide-react'
 import { useTranslation } from 'react-i18next'
+import { getActiveBrandProfile } from '@/branding'
 import { Button } from '@/components/ui/button'
 import { AnimateInView } from '@/components/animate-in-view'
 
@@ -11,6 +12,8 @@ interface CTAProps {
 
 export function CTA(props: CTAProps) {
   const { t } = useTranslation()
+  const brandProfile = getActiveBrandProfile()
+  const isBranded = Boolean(brandProfile)
 
   if (props.isAuthenticated) {
     return null
@@ -35,28 +38,54 @@ export function CTA(props: CTAProps) {
         animation='scale-in'
       >
         <h2 className='text-2xl leading-tight font-bold tracking-tight md:text-4xl'>
-          {t('Ready to simplify')}
-          <br />
-          <span className='bg-gradient-to-r from-blue-400 via-violet-400 to-purple-500 bg-clip-text text-transparent'>
-            {t('your AI integration?')}
-          </span>
+          {isBranded ? (
+            <>
+              让模型接入更少阻力
+              <br />
+              <span className='bg-gradient-to-r from-sky-500 via-blue-500 to-rose-500 bg-clip-text text-transparent'>
+                让交付上线更快发生
+              </span>
+            </>
+          ) : (
+            <>
+              {t('Ready to simplify')}
+              <br />
+              <span className='bg-gradient-to-r from-blue-400 via-violet-400 to-purple-500 bg-clip-text text-transparent'>
+                {t('your AI integration?')}
+              </span>
+            </>
+          )}
         </h2>
         <p className='text-muted-foreground/80 mx-auto mt-5 max-w-md text-sm leading-relaxed md:text-base'>
-          {t(
-            'Deploy your own gateway and start routing requests through your configured upstream services.'
-          )}
+          {isBranded
+            ? 'ByteCola 以统一入口承接模型能力、访问控制和运营策略，同时保留上游 New API 的核心能力与归属信息。'
+            : t(
+                'Deploy your own gateway and start routing requests through your configured upstream services.'
+              )}
         </p>
+        {isBranded && (
+          <div className='text-muted-foreground mt-6 flex flex-wrap items-center justify-center gap-2 text-xs'>
+            {['统一入口', '策略治理', '稳定交付'].map((item) => (
+              <span
+                key={item}
+                className='border-border/50 bg-background/80 rounded-full border px-3 py-1.5'
+              >
+                {item}
+              </span>
+            ))}
+          </div>
+        )}
         <div className='mt-8 flex items-center justify-center gap-3'>
           <Button className='group rounded-lg' render={<Link to='/sign-up' />}>
-            {t('Get Started')}
+            {isBranded ? '开始接入' : t('Get Started')}
             <ArrowRight className='ml-1 size-3.5 transition-transform duration-200 group-hover:translate-x-0.5' />
           </Button>
           <Button
             variant='outline'
             className='border-border/50 hover:border-border hover:bg-muted/50 rounded-lg'
-            render={<Link to='/pricing' />}
+            render={<Link to={isBranded ? '/about' : '/pricing'} />}
           >
-            {t('View Pricing')}
+            {isBranded ? '了解品牌说明' : t('View Pricing')}
           </Button>
         </div>
       </AnimateInView>

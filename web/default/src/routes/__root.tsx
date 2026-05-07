@@ -17,13 +17,16 @@ import { getSetupStatus } from '@/features/setup/api'
 function RootComponent() {
   // Load system configuration (logo, system name, etc.) from backend
   useSystemConfig({ autoLoad: true })
+  const showDevtools =
+    import.meta.env.MODE === 'development' &&
+    import.meta.env.VITE_ENABLE_DEVTOOLS === 'true'
 
   return (
     <ThemeCustomizationProvider>
       <NavigationProgress />
       <Outlet />
       <Toaster duration={5000} />
-      {import.meta.env.MODE === 'development' && (
+      {showDevtools && (
         <>
           <ReactQueryDevtools buttonPosition='bottom-left' />
           <TanStackRouterDevtools position='bottom-right' />

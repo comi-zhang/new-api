@@ -9,6 +9,7 @@ import {
   HeartHandshake,
 } from 'lucide-react'
 import { useTranslation } from 'react-i18next'
+import { getActiveBrandProfile } from '@/branding'
 import { AnimateInView } from '@/components/animate-in-view'
 
 interface FeaturesProps {
@@ -17,8 +18,110 @@ interface FeaturesProps {
 
 export function Features(_props: FeaturesProps) {
   const { t } = useTranslation()
+  const brandProfile = getActiveBrandProfile()
+  const isBranded = Boolean(brandProfile)
 
-  const features = [
+  const features = isBranded
+    ? [
+        {
+          id: 'gateway',
+          num: '01',
+          title: '统一接入',
+          desc: '把多家模型渠道收拢成一个入口，减少重复接线和环境切换。',
+          span: 'md:col-span-2',
+          icon: <Zap className='size-4 text-sky-500' />,
+          visual: (
+            <div className='mt-4 grid grid-cols-3 gap-2'>
+              {['OpenAI', 'Claude', 'Gemini', 'DeepSeek', 'Qwen', 'Llama'].map(
+                (name) => (
+                  <div
+                    key={name}
+                    className='border-border/30 bg-muted/20 text-muted-foreground flex items-center justify-center rounded-lg border px-3 py-2 text-xs transition-colors duration-300 hover:border-sky-500/30 hover:bg-sky-500/5'
+                  >
+                    {name}
+                  </div>
+                )
+              )}
+            </div>
+          ),
+        },
+        {
+          id: 'guardrails',
+          num: '02',
+          title: '渠道治理',
+          desc: '把密钥、分组、额度和访问规则放到统一控制面里，便于持续运营。',
+          span: 'md:col-span-1',
+          icon: <Shield className='size-4 text-emerald-500' />,
+          visual: (
+            <div className='mt-4 flex items-center justify-center'>
+              <div className='space-y-2 text-xs'>
+                {['Key 管理', '额度控制', '权限分组'].map((item) => (
+                  <div
+                    key={item}
+                    className='border-border/40 bg-muted/25 text-muted-foreground rounded-full border px-3 py-1.5'
+                  >
+                    {item}
+                  </div>
+                ))}
+              </div>
+            </div>
+          ),
+        },
+        {
+          id: 'delivery',
+          num: '03',
+          title: '团队交付',
+          desc: '把模型接入从个人技巧变成团队可复用的流程，交接和扩展都更顺手。',
+          span: 'md:col-span-1',
+          icon: <Globe className='size-4 text-violet-500' />,
+          visual: (
+            <div className='mt-4 space-y-2'>
+              {['产品', '运营', '工程'].map((step, i) => (
+                <div key={step} className='flex items-center gap-2'>
+                  <div
+                    className={`flex size-6 items-center justify-center rounded-full text-[10px] font-bold ${
+                      i === 1
+                        ? 'border border-rose-500/30 bg-rose-500/15 text-rose-500'
+                        : 'border-border/40 bg-muted text-muted-foreground border'
+                    }`}
+                  >
+                    {i + 1}
+                  </div>
+                  <div className='bg-border/40 h-px flex-1' />
+                  <span className='text-muted-foreground text-xs'>{step}</span>
+                </div>
+              ))}
+            </div>
+          ),
+        },
+        {
+          id: 'operations',
+          num: '04',
+          title: '运营透明',
+          desc: '让调用日志、配额消耗和投放策略都能被看见、被分析、被复盘。',
+          span: 'md:col-span-2',
+          icon: <Code className='size-4 text-amber-500' />,
+          visual: (
+            <div className='mt-4 flex items-center gap-3'>
+              <div className='flex -space-x-2'>
+                {['Logs', 'Quota', 'Route', 'Policy'].map((n) => (
+                  <div
+                    key={n}
+                    className='border-background from-muted to-muted/60 text-muted-foreground flex size-8 items-center justify-center rounded-full border-2 bg-gradient-to-br text-[9px] font-bold'
+                  >
+                    {n}
+                  </div>
+                ))}
+              </div>
+              <div className='text-muted-foreground flex items-center gap-1.5 text-xs'>
+                <Code className='size-3.5 text-sky-500' />
+                用一个入口管理对外服务
+              </div>
+            </div>
+          ),
+        },
+      ]
+    : [
     {
       id: 'fast',
       num: '01',
@@ -135,9 +238,32 @@ export function Features(_props: FeaturesProps) {
         </div>
       ),
     },
-  ]
+      ]
 
-  const additionalFeatures = [
+  const additionalFeatures = isBranded
+    ? [
+        {
+          icon: <Gauge className='size-5' strokeWidth={1.5} />,
+          title: '减少重复劳动',
+          desc: '不再为每个项目单独重配模型接入链路。',
+        },
+        {
+          icon: <DollarSign className='size-5' strokeWidth={1.5} />,
+          title: '成本更清楚',
+          desc: '从额度到计费口径，都能在一个后台里看清楚。',
+        },
+        {
+          icon: <Users className='size-5' strokeWidth={1.5} />,
+          title: '协作更顺畅',
+          desc: '让产品、工程和运营围绕同一套接入能力协同。',
+        },
+        {
+          icon: <HeartHandshake className='size-5' strokeWidth={1.5} />,
+          title: '可持续演进',
+          desc: '在保留上游能力的同时，逐步沉淀自己的品牌与流程。',
+        },
+      ]
+    : [
     {
       icon: <Gauge className='size-5' strokeWidth={1.5} />,
       title: t('High Performance'),
@@ -158,19 +284,29 @@ export function Features(_props: FeaturesProps) {
       title: t('Open Source'),
       desc: t('Community driven, self-hosted, and extensible'),
     },
-  ]
+      ]
 
   return (
     <section className='relative z-10 px-6 py-24 md:py-32'>
       <div className='mx-auto max-w-6xl'>
         <AnimateInView className='mb-16 max-w-lg'>
           <p className='text-muted-foreground mb-3 text-xs font-medium tracking-widest uppercase'>
-            {t('Core Features')}
+            {isBranded ? 'ByteCola Capability' : t('Core Features')}
           </p>
           <h2 className='text-2xl leading-tight font-bold tracking-tight md:text-3xl'>
-            {t('Built for developers,')}
-            <br />
-            {t('designed for scale')}
+            {isBranded ? (
+              <>
+                把 AI 接入做成
+                <br />
+                可交付的系统
+              </>
+            ) : (
+              <>
+                {t('Built for developers,')}
+                <br />
+                {t('designed for scale')}
+              </>
+            )}
           </h2>
         </AnimateInView>
 

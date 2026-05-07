@@ -135,3 +135,52 @@ For request structs that are parsed from client JSON and then re-marshaled to up
 ### Rule 7: Billing Expression System — Read `pkg/billingexpr/expr.md`
 
 When working on tiered/dynamic billing (expression-based pricing), you MUST read `pkg/billingexpr/expr.md` first. It documents the design philosophy, expression language (variables, functions, examples), full system architecture (editor → storage → pre-consume → settlement → log display), token normalization rules (`p`/`c` auto-exclusion), quota conversion, and expression versioning. All code changes to the billing expression system must follow the patterns described in that document.
+
+## Frontend Brand Maintenance Notes
+
+These notes apply to the downstream ByteCola maintenance branch that tracks upstream `web/default`.
+
+### Brand Activation
+
+- The active frontend brand profile is resolved in `web/default/src/branding/index.ts`.
+- In this downstream worktree, the default fallback profile is intentionally `bytecola`, so local runs do not depend on env injection to show the branded UI.
+- If branding suddenly falls back to `New API`, check this file first before changing page components.
+
+### Brand Entry Points
+
+- Runtime system name / logo reconciliation lives in `web/default/src/hooks/use-system-config.ts`.
+- Document title, favicon, manifest, and cached status re-application live in `web/default/src/main.tsx`.
+- About page brand fallback lives in `web/default/src/features/about/index.tsx`.
+- Auth page brand layout lives in `web/default/src/features/auth/auth-layout.tsx`.
+- Homepage brand sections live in:
+  - `web/default/src/features/home/components/sections/hero.tsx`
+  - `web/default/src/features/home/components/sections/features.tsx`
+  - `web/default/src/features/home/components/sections/how-it-works.tsx`
+  - `web/default/src/features/home/components/sections/cta.tsx`
+- Footer brand layout lives in `web/default/src/components/layout/components/footer.tsx`.
+
+### Footer Behavior
+
+- `footer_html` from backend still has priority and will override the built-in branded footer.
+- When `footer_html` is empty and a brand profile is active, the footer renders the structured brand footer instead of the old HTML fallback.
+- Upstream attribution must remain visible in the footer and/or about page. Do not remove `New API` / `QuantumNous` origin references.
+
+### Local Validation Workflow
+
+- Preferred local split deployment:
+  - backend: `http://localhost:8080`
+  - frontend: `http://localhost:5173`
+- Frontend dev server config is in `web/default/rsbuild.config.ts`.
+- SPA route fallback for local validation depends on:
+  - `server.htmlFallback = 'index'`
+  - `server.historyApiFallback = true`
+- If in-app browser automation is unavailable, use headless Edge screenshots / DOM dumps to validate:
+  - home `/`
+  - about `/about`
+  - auth `/sign-in`
+
+### Practical Lessons
+
+- Brand assets alone are not enough; runtime status mapping can overwrite title/logo back to upstream defaults.
+- After upstream sync, verify the actual served DOM, not just source code, because `system_name`, cached `status`, and footer fallbacks can silently revert the visible UI.
+- Prefer putting brand-specific copy behind the brand profile branch or documented brand entry points instead of scattering one-off replacements across unrelated components.

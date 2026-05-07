@@ -9,9 +9,14 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url))
 export default defineConfig(({ envMode }) => {
   const env = loadEnv({ mode: envMode, prefixes: ['VITE_'] })
   const serverUrl =
+    process.env.NEW_API_DEV_PROXY_TARGET ||
     process.env.VITE_REACT_APP_SERVER_URL ||
     env.rawPublicVars.VITE_REACT_APP_SERVER_URL ||
-    'http://localhost:3000'
+    'http://localhost:8080'
+  const brandProfile =
+    process.env.VITE_PUBLIC_BRAND_PROFILE ||
+    env.rawPublicVars.VITE_PUBLIC_BRAND_PROFILE ||
+    ''
 
   const isProd = envMode === 'production'
   const devProxy = Object.fromEntries(
@@ -54,6 +59,9 @@ export default defineConfig(({ envMode }) => {
       entry: {
         index: './src/main.tsx',
       },
+      define: {
+        __BRAND_PROFILE__: JSON.stringify(brandProfile),
+      },
     },
     resolve: {
       alias: {
@@ -65,6 +73,8 @@ export default defineConfig(({ envMode }) => {
     },
     server: {
       host: '0.0.0.0',
+      htmlFallback: 'index',
+      historyApiFallback: true,
       proxy: devProxy,
     },
     output: {

@@ -5,6 +5,14 @@ export const bytecolaBrandProfile: BrandProfile = {
   displayName: 'ByteCola',
   systemName: 'ByteCola',
   defaultLogo: '/bytecola-logo-mark.png',
+  primaryLogo: '/bytecola-logo-primary.png',
+  logoMark: '/bytecola-logo-mark.png',
+  wordmark: '/bytecola.png',
+  tagline: '让 AI 像可乐一样即开即用',
+  primaryColor: '#1494D1',
+  accentColor: '#DB0D18',
+  supportEmail: 'comizhang@outlook.com',
+  domain: 'bytecola.cn',
   defaultAboutMarkdown: `# 关于 ByteCola
 
 **ByteCola，让 AI 像可乐一样即开即用。**
@@ -65,4 +73,3 @@ ByteCola 提供统一、轻量、可运营的 AI 接入体验，帮助个人开�
       'ByteCola 提供统一接入、快速启用、稳定分发的 AI 网关体验，帮助团队用一个入口连接模型、管理访问并快速上线。',
   },
 }
-

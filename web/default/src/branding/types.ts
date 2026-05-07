@@ -17,9 +17,16 @@ export interface BrandProfile {
   displayName: string
   systemName: string
   defaultLogo: string
+  primaryLogo: string
+  logoMark: string
+  wordmark: string
+  tagline: string
+  primaryColor: string
+  accentColor: string
+  supportEmail: string
+  domain: string
   defaultAboutMarkdown: string
   defaultFooterHtml: string
   meta: BrandMeta
   hero: BrandHeroContent
 }
-

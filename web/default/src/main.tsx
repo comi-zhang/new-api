@@ -112,6 +112,8 @@ const rootElement = document.getElementById('root')!
     const defaultFavicon = getDefaultFavicon()
     const defaultSystemName = getDefaultSystemName()
     const defaultLogo = getDefaultLogo()
+    const resolveSystemName = (value?: string) =>
+      value && value !== 'New API' ? value : defaultSystemName
     const apply = (systemName: string, logo: string, favicon: string) => {
       applyDocumentTitle(systemName)
       applyFaviconToDom(favicon)
@@ -130,7 +132,7 @@ const rootElement = document.getElementById('root')!
       if (saved) {
         const s = JSON.parse(saved)
         apply(
-          s?.system_name || defaultSystemName,
+          resolveSystemName(s?.system_name),
           s?.logo || defaultLogo,
           s?.logo || defaultFavicon
         )
@@ -142,7 +144,7 @@ const rootElement = document.getElementById('root')!
     getStatus()
       .then((s) => {
         apply(
-          (s?.system_name as string | undefined) || defaultSystemName,
+          resolveSystemName(s?.system_name as string | undefined),
           (s?.logo as string | undefined) || defaultLogo,
           (s?.logo as string | undefined) || defaultFavicon
         )

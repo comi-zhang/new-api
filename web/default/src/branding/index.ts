@@ -1,12 +1,16 @@
 import { bytecolaBrandProfile } from './profiles/bytecola'
 import type { BrandProfile } from './types'
 
+declare const __BRAND_PROFILE__: string | undefined
+
 const profiles: Record<string, BrandProfile> = {
   bytecola: bytecolaBrandProfile,
 }
 
 function getActiveProfileId() {
-  return (import.meta.env.VITE_PUBLIC_BRAND_PROFILE || '').trim().toLowerCase()
+  // This downstream worktree is intended to present the ByteCola brand layer
+  // by default, while still keeping upstream attribution elsewhere in the UI.
+  return (__BRAND_PROFILE__ || 'bytecola').trim().toLowerCase()
 }
 
 export function getActiveBrandProfile(): BrandProfile | null {

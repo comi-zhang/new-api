@@ -1,11 +1,35 @@
 import { Settings, Zap, BarChart3 } from 'lucide-react'
 import { useTranslation } from 'react-i18next'
+import { getActiveBrandProfile } from '@/branding'
 import { AnimateInView } from '@/components/animate-in-view'
 
 export function HowItWorks() {
   const { t } = useTranslation()
+  const brandProfile = getActiveBrandProfile()
+  const isBranded = Boolean(brandProfile)
 
-  const steps = [
+  const steps = isBranded
+    ? [
+        {
+          num: '1',
+          title: '接上模型',
+          desc: '先把需要的上游模型能力接进来，统一到一个稳定入口里。',
+          icon: <Settings className='size-6' strokeWidth={1.5} />,
+        },
+        {
+          num: '2',
+          title: '配好策略',
+          desc: '把密钥、分组、额度和渠道策略配置清楚，形成可复用模板。',
+          icon: <Zap className='size-6' strokeWidth={1.5} />,
+        },
+        {
+          num: '3',
+          title: '对外交付',
+          desc: '让产品、业务和用户通过统一接口消费能力，并持续观察数据反馈。',
+          icon: <BarChart3 className='size-6' strokeWidth={1.5} />,
+        },
+      ]
+    : [
     {
       num: '1',
       title: t('Configure'),
@@ -28,17 +52,17 @@ export function HowItWorks() {
       desc: t('Track usage, costs and performance with real-time analytics'),
       icon: <BarChart3 className='size-6' strokeWidth={1.5} />,
     },
-  ]
+      ]
 
   return (
     <section className='border-border/40 relative z-10 border-t px-6 py-24 md:py-32'>
       <div className='mx-auto max-w-6xl'>
         <AnimateInView className='mb-16 text-center md:mb-20'>
           <p className='text-muted-foreground mb-3 text-xs font-medium tracking-widest uppercase'>
-            {t('How It Works')}
+            {isBranded ? 'Delivery Flow' : t('How It Works')}
           </p>
           <h2 className='text-2xl font-bold tracking-tight md:text-3xl'>
-            {t('Three steps to get started')}
+            {isBranded ? '从接入到交付，按三步推进' : t('Three steps to get started')}
           </h2>
         </AnimateInView>
 
