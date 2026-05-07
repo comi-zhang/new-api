@@ -14,7 +14,7 @@ The ByteCola logo is built from three ideas:
 
 - `Byte` represents the digital layer and uses Byte Blue.
 - `Cola` represents instant refreshment and uses Cola Red.
-- The bubble is the brand signal, replacing the lowercase `o` in `Cola` as a glossy cola bubble and integrating into the app icon when space is compact.
+- The bubble is the brand signal, integrated into the final `a` or the app icon instead of floating as a detached red dot.
 
 The bubble should read as carbonation, lightness, and "ready now." It must not look like an alert badge, error state, or notification dot.
 
@@ -29,8 +29,8 @@ Rules:
 - Use the horizontal wordmark on home pages, about pages, marketing sections, and larger authentication screens.
 - Keep the transparent background intact.
 - Keep `Byte` blue and `Cola` red.
-- Render the lowercase `o` in `Cola` as a glossy cola bubble with a subtle glass rim, red liquid surface, small carbonation dots, and restrained highlights.
-- Keep the bubble optically aligned with the neighboring `C` and `l` so it reads as the word's `o`, not as a decorative sticker.
+- Keep the bubble attached to the terminal `a` area.
+- Do not place the bubble after the wordmark as a detached decorative dot.
 
 ### Logo Mark
 
@@ -74,13 +74,13 @@ Cola Red is a brand color, not a warning color. Use it to express cola, energy, 
 Do:
 
 - Use Cola Red for the `Cola` letters in the primary wordmark.
-- Use small red-tinted refraction inside the bubble and keep outlines subtle in the primary wordmark.
+- Use small red-tinted refraction inside the bubble.
 - Use it sparingly for high-emphasis brand moments.
 
 Do not:
 
 - Use Cola Red as a generic error color in product UI.
-- Use a flat red dot that can be mistaken for an alert badge.
+- Use a detached red dot that can be mistaken for an alert badge.
 - Use large red backgrounds unless the layout is explicitly promotional.
 
 ## Typography
