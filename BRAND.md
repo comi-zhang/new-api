@@ -20,7 +20,7 @@
 - English Slogan: `AI, open and ready like cola.`
 - Brand Personality: `即时、轻快、亲和、可靠、可运营`
 - Official Domain: `bytecola.cn`
-- Contact Email: `comizhang@outlook.com`
+- Contact Email: `bytecola@outlook.com`
 - Effective Date for legal docs: `2026-05-01`
 - Operating Entity (current placeholder naming): `ByteCola官方运营方`
 
@@ -252,7 +252,7 @@
 项目背景：
 - 这是一个 Go + Gin + GORM 的 AI API Gateway / Proxy，前端是 React 18 + Vite + Semi Design。
 - 品牌目标是“让 AI 像可乐一样即开即用”。
-- 品牌名是 ByteCola，域名是 bytecola.cn，联系邮箱是 comizhang@outlook.com，法律文档生效日期是 2026-05-01。
+- 品牌名是 ByteCola，域名是 bytecola.cn，联系邮箱是 bytecola@outlook.com，法律文档生效日期是 2026-05-01。
 
 已完成：
 - 已生成品牌资源，位于 web/public/：bytecola.png、bytecola-logo-primary.png、bytecola-logo-mark.png、bytecola-logo-app-icon.png、logo.png、favicon.ico、favicon-32x32.png、favicon-16x16.png、apple-touch-icon.png、android-chrome-192x192.png、android-chrome-512x512.png、site.webmanifest。

@@ -146,11 +146,19 @@ func authHelper(c *gin.Context, minRole int) {
 	}
 	// 防止不同newapi版本冲突，导致数据不通用
 	c.Header("Auth-Version", "864b7076dbcd0a3c01b5520316720ebf")
+	userGroup := session.Get("group")
+	if userCache, err := model.GetUserCache(id.(int)); err == nil {
+		userGroup = userCache.Group
+		if session.Get("group") != userGroup {
+			session.Set("group", userGroup)
+			_ = session.Save()
+		}
+	}
 	c.Set("username", username)
 	c.Set("role", role)
 	c.Set("id", id)
-	c.Set("group", session.Get("group"))
-	c.Set("user_group", session.Get("group"))
+	c.Set("group", userGroup)
+	c.Set("user_group", userGroup)
 	c.Set("use_access_token", useAccessToken)
 
 	c.Next()

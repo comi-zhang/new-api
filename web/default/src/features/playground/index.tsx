@@ -76,7 +76,14 @@ export function Playground() {
         ]
 
     setGroups(processedGroups)
-  }, [groupsData, setGroups])
+
+    const isCurrentGroupValid = processedGroups.some(
+      (group) => group.value === config.group
+    )
+    if (!isCurrentGroupValid) {
+      updateConfig('group', DEFAULT_GROUP)
+    }
+  }, [groupsData, config.group, setGroups, updateConfig])
 
   const handleSendMessage = (text: string) => {
     const userMessage = createUserMessage(text)

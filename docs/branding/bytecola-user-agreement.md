@@ -84,4 +84,4 @@ ByteCola 是一套围绕 AI 能力接入、调用、管理与交付所提供的�
 如您对本协议有任何疑问、意见或建议，请通过以下方式联系我们：
 
 - 运营主体：`ByteCola官方运营方`
-- 联系邮箱：`comizhang@outlook.com`
+- 联系邮箱：`bytecola@outlook.com`

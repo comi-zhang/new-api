@@ -7,10 +7,18 @@ const profiles: Record<string, BrandProfile> = {
   bytecola: bytecolaBrandProfile,
 }
 
+function getRequestedProfileId() {
+  return (__BRAND_PROFILE__ || '').trim().toLowerCase()
+}
+
 function getActiveProfileId() {
   // This downstream worktree is intended to present the ByteCola brand layer
   // by default, while still keeping upstream attribution elsewhere in the UI.
-  return (__BRAND_PROFILE__ || 'bytecola').trim().toLowerCase()
+  return getRequestedProfileId() || 'bytecola'
+}
+
+export function isOfficialBrandProfile() {
+  return getRequestedProfileId() === 'official'
 }
 
 export function getActiveBrandProfile(): BrandProfile | null {

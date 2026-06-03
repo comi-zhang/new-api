@@ -93,6 +93,6 @@ ByteCola 非常重视您的个人信息与数据安全。本《ByteCola 隐私�
 如您对本政策有任何疑问、意见、投诉或建议，请通过以下方式联系我们：
 
 - 运营主体：`ByteCola官方运营方`
-- 联系邮箱：`comizhang@outlook.com`
+- 联系邮箱：`bytecola@outlook.com`
 - 联系地址：`暂未公开，如需联系请先通过官方邮箱沟通`
 - 官方域名：`bytecola.cn`

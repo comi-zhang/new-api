@@ -35,8 +35,8 @@ export const BRAND_CONFIG = Object.freeze({
   appIcon: '/bytecola-logo-app-icon.png',
   socialShareImage: '/bytecola-logo-app-icon.png',
   domain: 'bytecola.cn',
-  contactEmail: 'comizhang@outlook.com',
-  supportEmail: 'comizhang@outlook.com',
+  contactEmail: 'bytecola@outlook.com',
+  supportEmail: 'bytecola@outlook.com',
   docsLink: 'https://docs.newapi.pro/',
   generator: 'bytecola',
   faviconSet: Object.freeze({

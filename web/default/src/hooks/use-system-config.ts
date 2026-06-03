@@ -6,7 +6,7 @@ import {
   type SystemConfig,
   DEFAULT_CURRENCY_CONFIG,
 } from '@/stores/system-config-store'
-import { getActiveBrandProfile } from '@/branding'
+import { getActiveBrandProfile, isOfficialBrandProfile } from '@/branding'
 import { DEFAULT_SYSTEM_NAME, DEFAULT_LOGO } from '@/lib/constants'
 import { applyFaviconToDom } from '@/lib/dom-utils'
 
@@ -49,11 +49,14 @@ export function mapStatusDataToConfig(
 ): Partial<SystemConfig> {
   if (!data) return {}
   const brandProfile = getActiveBrandProfile()
+  const useOfficialDefaults = isOfficialBrandProfile()
   const resolvedSystemName =
-    data.system_name && data.system_name !== 'New API'
+    !useOfficialDefaults && data.system_name && data.system_name !== 'New API'
       ? data.system_name
       : brandProfile?.systemName || DEFAULT_SYSTEM_NAME
-  const resolvedLogo = data.logo || brandProfile?.defaultLogo || DEFAULT_LOGO
+  const resolvedLogo = useOfficialDefaults
+    ? DEFAULT_LOGO
+    : data.logo || brandProfile?.defaultLogo || DEFAULT_LOGO
 
   const quotaDisplayType =
     (data.quota_display_type as CurrencyDisplayType | undefined) ??
@@ -83,7 +86,7 @@ export function mapStatusDataToConfig(
   return {
     systemName: resolvedSystemName,
     logo: resolvedLogo,
-    footerHtml: data.footer_html,
+    footerHtml: useOfficialDefaults ? '' : data.footer_html,
     demoSiteEnabled: data.demo_site_enabled,
     displayTokenStatEnabled: data.display_token_stat_enabled,
     currency,

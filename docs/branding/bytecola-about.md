@@ -27,8 +27,8 @@ ByteCola 提供统一、轻量、可运营的 AI 接入体验，帮助个人开�
 ## 联系我们
 
 - 品牌名称：ByteCola
-- 联系邮箱：`comizhang@outlook.com`
-- 商务合作：`comizhang@outlook.com`
+- 联系邮箱：`bytecola@outlook.com`
+- 商务合作：`bytecola@outlook.com`
 - 生效页面域名：`bytecola.cn`
 
 欢迎通过正式渠道与我们取得联系，了解产品、合作与服务支持信息。

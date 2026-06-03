@@ -28,6 +28,11 @@ function isLikelyHtml(value: string) {
   return /<\/?[a-z][\s\S]*>/i.test(value)
 }
 
+const aboutProseClassName =
+  'max-w-none prose-headings:scroll-mt-20 prose-headings:text-slate-950 dark:prose-headings:text-slate-50 prose-p:leading-8 prose-p:text-slate-700 dark:prose-p:text-slate-300 prose-li:leading-8 prose-li:text-slate-700 dark:prose-li:text-slate-300 prose-strong:text-slate-950 dark:prose-strong:text-white prose-a:text-sky-600 hover:prose-a:text-sky-700 dark:prose-a:text-sky-300 dark:hover:prose-a:text-sky-200 prose-code:break-words prose-code:bg-slate-100 prose-code:text-rose-600 dark:prose-code:bg-white/10 dark:prose-code:text-rose-200 prose-pre:border prose-pre:border-slate-800 prose-pre:bg-slate-950 prose-pre:text-slate-100 dark:prose-pre:border-white/10 dark:prose-pre:bg-black/50 prose-blockquote:border-sky-300 prose-blockquote:text-slate-600 dark:prose-blockquote:border-sky-500/50 dark:prose-blockquote:text-slate-300 prose-table:my-6 prose-table:overflow-hidden prose-table:rounded-2xl prose-th:border-slate-200 prose-th:bg-slate-50 prose-th:text-slate-800 prose-th:font-semibold prose-td:border-slate-200 prose-td:align-top dark:prose-th:border-white/10 dark:prose-th:bg-white/10 dark:prose-th:text-slate-100 dark:prose-td:border-white/10 dark:prose-td:text-slate-300 prose-h1:text-3xl prose-h2:mt-10 prose-h2:border-t prose-h2:border-slate-200 prose-h2:pt-6 dark:prose-h2:border-white/10 prose-ul:pl-5 prose-ol:pl-5 marker:text-sky-500 dark:marker:text-sky-300'
+
+const aboutHtmlProseClassName = `prose prose-neutral dark:prose-invert ${aboutProseClassName}`
+
 function AboutHero(props: {
   title: string
   description: string
@@ -201,9 +206,7 @@ function AboutContentSurface(props: {
       </div>
       <div
         className={
-          props.isHtml
-            ? 'prose prose-neutral dark:prose-invert max-w-none prose-headings:scroll-mt-20 prose-p:leading-8 prose-li:leading-8'
-            : ''
+          props.isHtml ? aboutHtmlProseClassName : ''
         }
       >
         {props.children}
@@ -346,7 +349,7 @@ export function About() {
             />
             <div className='grid gap-6 lg:grid-cols-[minmax(0,1fr)_320px]'>
               <AboutContentSurface>
-                <Markdown className='max-w-none prose-headings:scroll-mt-20 prose-p:leading-8 prose-li:leading-8 prose-strong:text-foreground prose-h1:text-3xl prose-h2:mt-10 prose-h2:border-t prose-h2:pt-6 prose-ul:pl-5 prose-ol:pl-5'>
+                <Markdown className={aboutProseClassName}>
                   {defaultAboutContent}
                 </Markdown>
               </AboutContentSurface>
@@ -400,11 +403,11 @@ export function About() {
           <AboutContentSurface isHtml={isHtml}>
             {isHtml ? (
               <div
-                className='prose prose-neutral dark:prose-invert max-w-none prose-headings:scroll-mt-20 prose-p:leading-8 prose-li:leading-8'
+                className={aboutHtmlProseClassName}
                 dangerouslySetInnerHTML={{ __html: rawContent }}
               />
             ) : (
-              <Markdown className='max-w-none prose-headings:scroll-mt-20 prose-p:leading-8 prose-li:leading-8 prose-strong:text-foreground prose-h1:text-3xl prose-h2:mt-10 prose-h2:border-t prose-h2:pt-6 prose-ul:pl-5 prose-ol:pl-5'>
+              <Markdown className={aboutProseClassName}>
                 {rawContent}
               </Markdown>
             )}

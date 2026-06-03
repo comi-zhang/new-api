@@ -70,4 +70,4 @@ ByteCola 的品牌目标是：让 AI 像可乐一样即开即用。
 - About Headline: `ByteCola，让 AI 从“接得上”变成“用得爽”。`
 - Product Intro: `ByteCola 提供统一、轻量、可运营的 AI 接入体验，帮助团队用一个入口连接模型、管理访问、快速上线。`
 - Official Domain: `bytecola.cn`
-- Contact Email: `comizhang@outlook.com`
+- Contact Email: `bytecola@outlook.com`
